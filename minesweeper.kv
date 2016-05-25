@@ -1,0 +1,39 @@
+#:kivy 1.0.9
+
+#:include debug.kv
+
+<GridSquare>:
+    text: self.square_label
+
+<GameBoard>:
+
+<MinesweeperGame>:
+    id: _mainwindow
+
+    scoring_area: _scoring_area
+    playing_area: _playing_area
+
+    cols: 1
+    orientation: 'vertical'
+    BoxLayout:
+        id: _scoring_area
+        mainwindow: _mainwindow
+        size_hint_y: None
+        height: "50dp"
+        orientation: 'horizontal'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Bombs Left: ' + str(self.parent.mainwindow.num_bombs_left)
+        Button:
+            id: _reset_button
+            text: "Reset"
+            on_press: self.parent.mainwindow.reset_game()
+        Label:
+            text: 'Time: ' + str(self.parent.mainwindow.timer)
+        Label:
+            text: 'Best: ' + str(self.parent.mainwindow.best_time)
+    FloatLayout:
+        id: _playing_area
+        mainwindow: _mainwindow
